@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Pessoa.hasMany(models.Curso, { foreignKey: "docente_id" });
+      Pessoa.hasMany(models.Matricula, { foreignKey: "estudante_id" });
     }
   }
   Pessoa.init(
@@ -32,3 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 // depois incluir:
 // tableName: 'pessoas'
 // Alterar tb o arquivo de migration para o nome correto da tabela.
+// Implantar os migrations;
+// npx sequelize-cli db:migrate
+// Criar seed:
+// npx sequelize-cli seed:generate --name demo-categorias
