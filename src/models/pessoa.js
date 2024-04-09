@@ -31,3 +31,4 @@ module.exports = (sequelize, DataTypes) => {
 // npx sequelize-cli model:generate --name Pessoa --attributes nome:string,email:string,cpf:string,ativo:boolean,role:string
 // depois incluir:
 // tableName: 'pessoas'
+// Alterar tb o arquivo de migration para o nome correto da tabela.
