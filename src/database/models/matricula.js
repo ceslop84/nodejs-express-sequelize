@@ -20,9 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Matricula",
       tableName: "matriculas",
+      paranoid: true,
     }
   );
   return Matricula;
 };
-
-//npx sequelize-cli model:generate --name Matricula --attributes status:string

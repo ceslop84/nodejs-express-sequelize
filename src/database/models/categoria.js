@@ -19,9 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Categoria",
       tableName: "categorias",
+      paranoid: true,
     }
   );
   return Categoria;
 };
-
-//npx sequelize-cli model:generate --name Categoria --attributes titulo:string
