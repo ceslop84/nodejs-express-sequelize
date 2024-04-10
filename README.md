@@ -4,6 +4,10 @@ Modelo de banco de dados:
 
 ![banco de dados](/arquivos-base/entidades.png)
 
+Arquitetura:
+
+![arquitetura](/arquivos-base/arquitetura.png)
+
 Repositório do curso: https://github.com/alura-cursos/3374-nodejs-express-sequelize/tree/aula-5
 
 - Criar os modelos:

@@ -1,3 +1,5 @@
+const converteIds = require("../utils/conversosDeStringHelper.js");
+
 class Controller {
   constructor(entidadeService) {
     this.entidadeService = entidadeService;
@@ -12,12 +14,21 @@ class Controller {
     }
   }
 
-  async pegaUmPorId(req, res) {
+  async pegaUmRegistroPorId(req, res) {
     const { id } = req.params;
     try {
-      const umRegistro = await this.entidadeService.pegaUmRegistroPorId(
-        Number(id)
-      );
+      const umRegistro = await this.entidadeService.pegaUmRegistroPorId(Number(id));
+      return res.status(200).json(umRegistro);
+    } catch (erro) {
+      return res.status(500).json({ erro: erro.message });
+    }
+  }
+
+  async pegaUmRegistro(req, res) {
+    const { ...params } = req.params;
+    const where = converteIds(params);
+    try {
+      const umRegistro = await this.entidadeService.pegaUmRegistro(where);
       return res.status(200).json(umRegistro);
     } catch (erro) {
       return res.status(500).json({ erro: erro.message });
@@ -27,9 +38,7 @@ class Controller {
   async criaNovo(req, res) {
     const dadosParaCriacao = req.body;
     try {
-      const novoRegistroCriado = await this.entidadeService.criaRegistro(
-        dadosParaCriacao
-      );
+      const novoRegistroCriado = await this.entidadeService.criaRegistro(dadosParaCriacao);
       return res.status(200).json(novoRegistroCriado);
     } catch (erro) {
       return res.status(500).json({ erro: erro.message });
@@ -37,17 +46,13 @@ class Controller {
   }
 
   async atualiza(req, res) {
-    const { id } = req.params;
+    const { ...params } = req.params;
+    const where = converteIds(params);
     const dadosAtualizados = req.body;
     try {
-      const foiAtualizado = await this.entidadeService.atualizaRegistro(
-        dadosAtualizados,
-        Number(id)
-      );
+      const foiAtualizado = await this.entidadeService.atualizaRegistro(dadosAtualizados, where);
       if (!foiAtualizado) {
-        return res
-          .status(400)
-          .json({ mensagem: "registro não foi atualizado" });
+        return res.status(400).json({ mensagem: "registro não foi atualizado" });
       }
       return res.status(200).json({ mensagem: "Atualizado com sucesso" });
     } catch (erro) {
